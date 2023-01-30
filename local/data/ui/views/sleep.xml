@@ -1,0 +1,48 @@
+<form version="1.1" script="myCustomJS.js">
+  <label>Sleep old</label>
+  <fieldset submitButton="false">
+    <input type="time" token="field1">
+      <label></label>
+      <default>
+        <earliest>@w0</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <title>Hours Slept</title>
+      <chart>
+        <search>
+          <query>index="fitbit" source=fitbit:minutesleep
+| eventstats sum(value) as asleep
+| eval asleep=round(asleep/60,2)
+| stats values(asleep) as Asleep by date</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="charting.chart">column</option>
+        <option name="charting.drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+    <panel>
+      <title>Hours in Sleep Stages</title>
+      <chart>
+        <search>
+          <query>index=fitbit source=fitbit:minuteStagesSleep
+| eval stage=case(Stage=="deep", round(stages/60,2), Stage=="light",round(stages/60,2), Stage=="wake", round(stages/60,2), Stage=="rem", round(stages/60,2))
+| stats values(stage) AS "Hours in Stage" by Stage</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="charting.chart">bar</option>
+        <option name="charting.chart.showDataLabels">all</option>
+        <option name="charting.chart.stackMode">default</option>
+        <option name="charting.drilldown">none</option>
+        <option name="charting.layout.splitSeries">0</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+  </row>
+</form>

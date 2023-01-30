@@ -1,0 +1,74 @@
+<form version="1.1" script="myCustomJS.js">
+  <label>Weight old</label>
+  <fieldset submitButton="false">
+    <input type="time" token="field1">
+      <label></label>
+      <default>
+        <earliest>@w0</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <title>Weight</title>
+      <chart>
+        <search>
+          <query>index=fitbit source=fitbit:weight | chart values(weight) by day</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="charting.chart">line</option>
+        <option name="charting.drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+    <panel>
+      <chart>
+        <title>Lean vs Fat</title>
+        <search>
+          <query>index=fitbit source=fitbit:weight
+| eval fat_perc=fat/100
+| eval fat_weight=weight*fat_perc
+| eval lean_mass=weight-fat_weight
+| chart values(fat_weight) as "Body Fat" values(lean_mass) as "Lean Mass" by day</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="charting.chart">line</option>
+        <option name="charting.drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Fat %</title>
+      <chart>
+        <search>
+          <query>index=fitbit source=fitbit:weight | timechart values(fat) as Fat span=1d</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="charting.chart">line</option>
+        <option name="charting.chart.nullValueMode">connect</option>
+        <option name="charting.drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+    <panel>
+      <title>BMI</title>
+      <chart>
+        <search>
+          <query>index=fitbit source=fitbit:weight | timechart values(BMI) as BMI span=1d</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="charting.chart">line</option>
+        <option name="charting.chart.nullValueMode">connect</option>
+        <option name="charting.drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+  </row>
+</form>

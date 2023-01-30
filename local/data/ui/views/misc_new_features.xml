@@ -1,0 +1,83 @@
+<dashboard version="1.1">
+  <label>Misc New Features</label>
+  <description>Create dashboards for all new data sources</description>
+  <row>
+    <panel>
+      <title>Macros</title>
+      <chart>
+        <search>
+          <query>index=fitbit source=fitbit:food logId!=logId 
+| chart sum(protein) AS Protein, sum(carbs) AS Carbohydrates, sum(fat) AS Fat by _time</query>
+          <earliest>-30d@d</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="charting.chart">column</option>
+        <option name="charting.drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Active Minutes</title>
+      <chart>
+        <search>
+          <query>index=fitbit source=fitbit:activity:* 
+| rex field=source ":(?&lt;source_short&gt;[^:]+)$"
+| chart sum(value) as minutes by date, source</query>
+          <earliest>-30d@d</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="charting.chart">column</option>
+        <option name="charting.chart.stackMode">stacked</option>
+        <option name="charting.drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Calories Out</title>
+      <single>
+        <search>
+          <query>index=fitbit source="fitbit:calories" level!=level
+| stats sum(value) AS CaloriesOut by date 
+| eval "Calories Out"=round(CaloriesOut,0)
+| chart values("Calories Out")</query>
+          <earliest>1665730800</earliest>
+          <latest>1665817200</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </single>
+    </panel>
+    <panel>
+      <title>Calories In</title>
+      <single>
+        <search>
+          <query>index=fitbit source=fitbit:food logId!=logId 
+| chart sum(calories) AS "Calories In" by _time</query>
+          <earliest>1665730800</earliest>
+          <latest>1665817200</latest>
+        </search>
+        <option name="drilldown">none</option>
+      </single>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <chart>
+        <search>
+          <query>index=fitbit source="fitbit:food" logId!=logId
+| stats sum(calories) by _time
+| apply Calorie_Smart_Forecast</query>
+          <earliest>0</earliest>
+          <latest></latest>
+        </search>
+        <option name="charting.chart">line</option>
+        <option name="charting.drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+  </row>
+</dashboard>
