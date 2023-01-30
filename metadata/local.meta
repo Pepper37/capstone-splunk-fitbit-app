@@ -1,0 +1,128 @@
+[app/ui]
+owner = peter.luyten
+version = 8.2.5
+modtime = 1650155360.960921000
+
+[app/launcher]
+owner = peter.luyten
+version = 8.2.5
+modtime = 1650155360.963538000
+
+[app/package/check_for_updates]
+version = 8.2.5
+modtime = 1650155360.965043000
+
+[views/weight]
+version = 9.0.1
+modtime = 1663996494.784079000
+
+[views/sleep]
+version = 9.0.1
+modtime = 1663996403.435268000
+
+[views/sctivity]
+owner = peter.luyten
+version = 9.0.1
+modtime = 1663996261.829279000
+
+[nav/default]
+version = 9.0.1
+modtime = 1663872438.726708000
+
+[props/csv]
+version = 9.0.1
+modtime = 1663788931.083680000
+
+[props/csv/EXTRACT-BMI%2Cyear%2Cmonth%2Cday%2Cfat%2Chour%2Cminute%2Csecond%2Cweight]
+access = read : [ * ], write : [ admin ]
+export = none
+owner = peter
+version = 9.0.1
+modtime = 1663873331.676599000
+
+[props/csv/EXTRACT-Stage%2Cstages%2CtotalMinuesAsleep%2CtotalSleepRecords%2CtotalTimeInBed%2CYear%2CMonth%2CDate]
+access = read : [ * ], write : [ admin ]
+export = none
+owner = peter
+version = 9.0.1
+modtime = 1663949547.620491000
+
+[views/activity]
+owner = robyn
+version = 9.0.1
+modtime = 1669522874.203666000
+
+[views/home_page]
+owner = robyn
+version = 9.0.1
+modtime = 1669523024.088446000
+
+[props/csv/EXTRACT-isFavorite%2ClogDate%2CYear%2CMonth%2CDay%2ClogId%2CaccessLevel%2Camount%2Cbrand%2Ccalories%2CfoodId%2Clocale%2CmealTypeId%2Cname%2CunitId%2CunitName%2Ccarbs%2Cfat%2Cfiber%2Cprotein%2Csodium]
+access = read : [ * ], write : [ admin ]
+export = none
+owner = peter
+version = 9.0.1
+modtime = 1664461091.803284000
+
+[props/csv/EXTRACT-isFavorite%2Cdate%2CYear%2CMonth%2CDay%2ClogId%2CaccessLevel%2Camount%2Cbrand%2Ccalories%2CcreatorEncodedId%2CfoodId%2Clocale%2CmealTypeId%2Cname%2CunitId%2CunitName%2Ccarbs%2Cfat%2Cfiber%2Cprotein%2Csodium]
+access = read : [ * ], write : [ admin ]
+export = none
+owner = peter
+version = 9.0.1
+modtime = 1664658517.161311000
+
+[views/misc_new_features]
+owner = peter
+version = 9.0.1
+modtime = 1666194873.199991000
+
+[lookups/__mlspl_Calorie_Smart_Forecast.mlmodel]
+access = read : [ * ], write : [ admin ]
+export = none
+owner = peter
+version = 9.0.1
+modtime = 1666194827.342571000
+
+[lookups/__mlspl__calorie_forecast.mlmodel]
+access = read : [ * ], write : [ admin ]
+export = none
+owner = peter
+version = 9.0.1
+modtime = 1666194844.797764000
+
+[lookups/__mlspl_calorie_test_3.mlmodel]
+access = read : [ * ], write : [ admin ]
+export = none
+owner = peter
+version = 9.0.1
+modtime = 1666194862.655609000
+
+[views/sleep_clone]
+access = read : [ * ], write : [ * ]
+export = none
+owner = robyn
+version = 9.0.1
+modtime = 1669522930.273276000
+
+[views/weight_clone]
+access = read : [ * ], write : [ * ]
+export = none
+owner = robyn
+version = 9.0.1
+modtime = 1669449244.481421000
+
+[views/home_page_copy]
+owner = robyn
+version = 9.0.1
+modtime = 1666422869.275828000
+
+[views/misc_new_features_copy]
+owner = robyn
+version = 9.0.1
+modtime = 1669439117.617345000
+
+[lookups/__mlspl_sleep_predict.mlmodel]
+export = system
+owner = admin
+version = 9.0.1
+modtime = 1669251959.700049000
