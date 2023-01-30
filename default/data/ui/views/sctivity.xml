@@ -1,0 +1,106 @@
+<form version="1.1" script="myCustomJS.js">
+  <label>Activity old</label>
+  <fieldset submitButton="false">
+    <input type="time" token="field1">
+      <label></label>
+      <default>
+        <earliest>@w0</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <title>Total Steps</title>
+      <chart>
+        <search>
+          <query>index=fitbit source=fitbit:steps | rename value as Steps | chart max(Steps) OVER _time</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="charting.chart">column</option>
+        <option name="charting.drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+    <panel>
+      <title>Active Hours</title>
+      <chart>
+        <search>
+          <query>index=fitbit source="activity.csv" 
+| rename "Minutes Fairly Active" as fairly, "Minutes Lightly Active" as lightly, "Minutes Sedentary" as sedentary, "Minutes Very Active" as very
+| eval fairly1=round(fairly/60,2)
+| eval lightly1=round(lightly/60,2)
+| eval sedentary1=round(sedentary/60,2)
+| eval very1=round(very/60,2)
+| stats values(fairly1) as "Fairly Active" values(lightly1) as "Lightly Active" values(sedentary1) as Sedentary values(very1) as "Very Active" by Date</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="charting.axisTitleX.text">Hours</option>
+        <option name="charting.chart">bar</option>
+        <option name="charting.chart.showDataLabels">all</option>
+        <option name="charting.chart.stackMode">stacked</option>
+        <option name="charting.drilldown">none</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Average Steps</title>
+      <single>
+        <search>
+          <query>index=fitbit source="fitbit:steps" value!=0 | rename value as Steps | chart avg(Steps)</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="numberPrecision">0.0</option>
+        <option name="rangeColors">["0x53a051","0x0877a6","0xf8be34","0xf1813f","0xdc4e41"]</option>
+        <option name="refresh.display">progressbar</option>
+      </single>
+    </panel>
+    <panel>
+      <title>Average floors per day</title>
+      <single>
+        <search>
+          <query>index=fitbit source="fitbit:floors" value!=0 | rename value as Floors | chart avg(Floors)</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="numberPrecision">0.0</option>
+        <option name="rangeColors">["0x53a051","0x0877a6","0xf8be34","0xf1813f","0xdc4e41"]</option>
+        <option name="refresh.display">progressbar</option>
+      </single>
+    </panel>
+    <panel>
+      <title>Total Distance</title>
+      <single>
+        <search>
+          <query>index=fitbit source="fitbit:distance" | rename value as Distance
+| stats sum(Distance)</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="numberPrecision">0.0</option>
+        <option name="rangeColors">["0x53a051","0x0877a6","0xf8be34","0xf1813f","0xdc4e41"]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="unit">miles</option>
+      </single>
+    </panel>
+    <panel>
+      <title>Max Steps</title>
+      <single>
+        <search>
+          <query>index=fitbit source="fitbit:steps" | rename value as Steps | chart max(Steps)</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </single>
+    </panel>
+  </row>
+</form>
