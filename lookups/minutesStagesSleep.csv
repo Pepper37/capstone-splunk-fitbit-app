@@ -1,0 +1,5 @@
+,stages,totalMinutesAsleep,totalSleepRecords,totalTimeInBed,date
+deep,54,366,1,408,2022-11-26
+light,225,366,1,408,2022-11-26
+rem,48,366,1,408,2022-11-26
+wake,81,366,1,408,2022-11-26
