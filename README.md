@@ -9,7 +9,7 @@ We each had individual Ubuntu virtual machines each running a Splunk Enterprise 
 
 In our Splunk app, called Capstone, we have a Python script (under `Capstone/bin/python-fitbit-master/GetData.py`) that runs a CherryPy server calling the Fitbit API which gets us our fitness data. We then format that data and place it in a `lookups` directory for Splunk to ingest. This python script is attributed to the Python Fitbit API implementation by ORCAS, found here: https://github.com/orcasgit/python-fitbit
 
-We ingest this data into the Splunk server, and in  our Capstone app we run SPL queries to turn that data into interesting visual dashboards. These dashboards also include Splunk MLTK queries that predict future behavior using machine learning algorithms provided by Splunk in the MLTK. These predictions are included in the dashboards in the Capstone app. 
+We ingest this data into the Splunk server, and in  our Capstone app we run SPL queries to turn that data into custom dashboards created using Splunk's Dashboard Studio. These dashboards also include Splunk MLTK queries that predict future behavior using machine learning algorithms provided by Splunk in the MLTK. These predictions are included in the dashboards in the Capstone app. 
 
 <img src="/final deliverable poster.png" alt="project presentation" width="50%" height="50%">
 
